@@ -1,0 +1,4 @@
+[submodule "carla"]
+	path = carla
+	url = https://github.com/necst/carla.git
+	branch = driver-aggressiveness-simulator
