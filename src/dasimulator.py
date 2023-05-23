@@ -8,7 +8,7 @@ import asyncio
 from constants import *
 from aggressive_driver import AggressiveDriver
 try:
-    sys.path.append(os.path.dirname((os.getcwd())) + os.sep + "carla")
+    sys.path.append(os.path.join(os.path.dirname((os.getcwd())), "carla", "PythonAPI", "carla", "agents", "navigation"))
 except IndexError:
     pass
 
@@ -18,7 +18,7 @@ from agents.navigation.global_route_planner import GlobalRoutePlanner
 import nest_asyncio
 nest_asyncio.apply()
 
-class ADSGenerator:
+class DASimulator:
     def __init__(self, world, vehicle, waypoints, target_aggIn = 107, dt = 0.005, opt_dict = {}):  
         """Constructor method.
 

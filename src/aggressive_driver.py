@@ -7,7 +7,7 @@ import sympy as sp
 from constants import *
 
 try:
-    sys.path.append(os.path.dirname((os.getcwd())) + os.sep + "carla")
+    sys.path.append(os.path.join(os.path.dirname((os.getcwd())), "carla", "PythonAPI", "carla", "agents", "navigation"))
 except IndexError:
     pass
 
@@ -74,7 +74,7 @@ class AggressiveDriver:
                 self._route.append(x)
                
         if target_aggIn < AGG_IN_MIN or target_aggIn > AGG_IN_MAX:
-            raise ValueError("Aggressiveness index out of range")
+            raise ValueError("Aggressiveness index out of range. It must be between 70 and 160!")
         
         # compute the best PID and create the agent
         self._aggIn = target_aggIn
@@ -207,7 +207,7 @@ class AggressiveDriver:
         -----------
         ### Returns
             `out` : float
-                Approximation of the aggressiveness index of the PID controller if it would be used to follow FTP-75 driving cycle.
+                Data driven approximation of the aggressiveness index given the PID parameters.
         """
         args = OPT_PARAMETERS
         
@@ -240,12 +240,15 @@ class AggressiveDriver:
         MAX_ITER = 300
         PRECISION_on_KP = 0.003
         
+        np.random.seed(88)
+        
         res_list = []
         i = 0
         
         while (len(res_list) < k or (i < MAX_ITER and len(res_list) <= 1)):
             # generate KP from a random normal distribution with mean depending on normalized aggressiveness index   
             KP = 0
+
             while(KP < KP_A or KP > KP_B):
                 KP = np.random.normal((KP_B - KP_A) * (1 + 2 * (self._aggIn - AGG_IN_MIN) / (AGG_IN_MAX - AGG_IN_MIN)) / 4, (KP_B - KP_A) / 3)
                 
