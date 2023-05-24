@@ -4,10 +4,10 @@ import carla
 import os
 import sys
 import sympy as sp
-from .constants import *
+from constants import *
 
 try:
-    sys.path.append(os.path.join(os.path.dirname((os.getcwd())), "carla", "PythonAPI", "carla", "agents", "navigation"))
+    sys.path.append(os.path.join(os.path.dirname((os.getcwd())), "PythonAPI", "carla"))
 except IndexError:
     pass
 

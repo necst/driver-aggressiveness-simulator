@@ -5,10 +5,10 @@ import os
 import sys
 import csv
 import asyncio
-from .constants import *
-from .aggressive_driver import AggressiveDriver
+from constants import *
+from aggressive_driver import AggressiveDriver
 try:
-    sys.path.append(os.path.join(os.path.dirname((os.getcwd())), "carla", "PythonAPI", "carla", "agents", "navigation"))
+    sys.path.append(os.path.join(os.path.dirname((os.getcwd())), "PythonAPI", "carla"))
 except IndexError:
     pass
 

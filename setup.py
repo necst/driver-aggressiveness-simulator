@@ -12,14 +12,12 @@ setup(
     author_email='matteo.santelmo@mail.polimi.it',
     package_dir={"": "src"},
     packages=find_packages(where='src'),
-    # FIXME: the correct version for carla would be 0.9.14 but for some reason it's not in the list of available versions during docker build
-    # This is probably linked to an uncorrect handling of python versions in the docker image.
     install_requires=[
         'numpy',
         'pandas',
         'sympy',
         'asyncio',
-        'carla==0.9.13'
+        'carla==0.9.14'
     ],
     license="MIT",
     classifiers=[
