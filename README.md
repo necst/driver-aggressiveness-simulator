@@ -6,7 +6,7 @@ This tool exploits [CARLA simulator](https://carla.org/) to allow user simulate 
 
 DASimulator makes use of a modified version of CARLA agents, which represents a driver using two PID controllers (one for longitudinal control, one for lateral). Specifically, a link has been found between the PID’s $k_p$ (proportional) and $k_d$ (derivative) parameters, and the computed value of the proposed aggressiveness index, evaluated over the standard FTP-75 driving cycle.
 
-DASimulator allows the end users to provide a `[carla.World](http://carla.World)` object, a `carla.Vehicle`, specify a route to be followed, an optional speed profile and obviously the target aggressiveness index of the driver. The simulator will run and generate on a given file the signals retrieved during simulation, including throttle, brake, real speed profile and data collected by an IMU mounted on the vehicle (acceleration and angular velocity).
+DASimulator allows the end users to provide a `carla.World` object, a `carla.Vehicle`, specify a route to be followed, an optional speed profile and obviously the target aggressiveness index of the driver. The simulator will run and generate on a given file the signals retrieved during simulation, including throttle, brake, real speed profile and data collected by an IMU mounted on the vehicle (acceleration and angular velocity).
 
 # Installation
 
