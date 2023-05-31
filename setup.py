@@ -17,7 +17,9 @@ setup(
         'pandas',
         'sympy',
         'asyncio',
-        'carla==0.9.14'
+        'carla==0.9.14',
+        'matplotlib',
+        'scipy'
     ],
     license="MIT",
     classifiers=[

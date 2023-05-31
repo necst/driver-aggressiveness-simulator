@@ -46,16 +46,25 @@ COPY ./src/* /home/carla/driver-aggressiveness-simulator/src/
 COPY ./README.md /home/carla/driver-aggressiveness-simulator/
 COPY ./setup.py /home/carla/driver-aggressiveness-simulator/
 
+# Copy the example notebook and make the folder writable
+COPY ./example/ /home/carla/example/
+USER root
+RUN chmod -R 777 /home/carla/example
+USER carla
+
 # Build and install the Python package "dasimulator"
 WORKDIR /home/carla/driver-aggressiveness-simulator
 RUN python setup.py bdist_wheel sdist
 RUN python -m pip install -e .
 
-# Set the working directory for the Jupyter Notebook
+# Set the working directory 
 WORKDIR /home/carla
 
-# Expose the Jupyter Notebook port
-EXPOSE 8888
+# Set the XDG_RUNTIME_DIR environment variable
+ENV XDG_RUNTIME_DIR=/tmp/runtime-carla
+
+# Expose the Jupyter Notebook port and Carla port
+EXPOSE 8888 2000-2002
 
 # Start the Jupyter Notebook server
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--certfile=/home/carla/mycert.pem", "--keyfile=/home/carla/mykey.key"]
