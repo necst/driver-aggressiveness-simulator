@@ -13,9 +13,9 @@ RUN ln -sfn /usr/bin/python3.7 /usr/bin/python
 RUN python -m pip install --upgrade pip
 
 # Install basic python dependencies
-RUN python -m pip install jupyter wheel setuptools numpy pygame
+RUN python -m pip install jupyter wheel setuptools 
 
-# TODO: remove this line if it's not the only way to avoid xdg-user-dir: not found error
+# FIX: xdg-user-dir not found error
 RUN apt-get install -y xdg-user-dirs xdg-utils && apt-get clean
 
 # Switch back to the carla user
@@ -31,14 +31,14 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 
 # Install the carla PythonAPI
-# TODO: find a way to install without needing the exact name of the wheel file
 RUN python -m pip install PythonAPI/carla/dist/carla-0.9.14-cp37-cp37m-manylinux_2_27_x86_64.whl
 
 # Patching agents implementation in carla PythonAPI  
 COPY ./carla/PythonAPI/carla/agents/navigation/* /home/carla/PythonAPI/carla/agents/navigation/
 
 # Install requirements for the agents
-RUN python -m pip install -r /home/carla/PythonAPI/carla/requirements.txt
+RUN python -m pip install -r /home/carla/PythonAPI/carla/requirements.txt && \
+    python -m pip install pygame
 
 # Copy the simulator source code and setup file
 RUN mkdir -p /home/carla/driver-aggressiveness-simulator/src/
@@ -47,9 +47,9 @@ COPY ./README.md /home/carla/driver-aggressiveness-simulator/
 COPY ./setup.py /home/carla/driver-aggressiveness-simulator/
 
 # Copy the example notebook and make the folder writable
-COPY ./example/ /home/carla/example/
+COPY ./example/ /home/carla/notebook
 USER root
-RUN chmod -R 777 /home/carla/example
+RUN chmod -R 777 /home/carla/notebook
 USER carla
 
 # Build and install the Python package "dasimulator"
@@ -66,5 +66,11 @@ ENV XDG_RUNTIME_DIR=/tmp/runtime-carla
 # Expose the Jupyter Notebook port and Carla port
 EXPOSE 8888 2000-2002
 
-# Start the Jupyter Notebook server
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--certfile=/home/carla/mycert.pem", "--keyfile=/home/carla/mykey.key"]
+# Copy the entrypoint script
+COPY ./entrypoint.sh /home/carla/entrypoint.sh
+USER root
+RUN chmod u+x /home/carla/entrypoint.sh
+USER carla
+
+# Run the entrypoint script
+ENTRYPOINT [ "/home/carla/entrypoint.sh" ]

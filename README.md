@@ -4,11 +4,11 @@
 
 This tool exploits [CARLA simulator](https://carla.org/) to allow user simulate the behavior of an **aggressive driver** given the level of aggressiveness. The aggressiveness level decided by the user is consistent with the aggressiveness index defined in [B. Shi *et al*., "Evaluating Driving Styles by Normalizing Driving Behavior Based on Personalized Driver Modeling," in *IEEE Transactions on Systems, Man, and Cybernetics: Systems*, vol. 45, no. 12, pp. 1502-1508, Dec. 2015, doi: 10.1109/TSMC.2015.2417837](https://ieeexplore.ieee.org/document/7090994), which has been taken as reference.
 
-DASimulator makes use of a modified version of CARLA agents, which represents a driver using two PID controllers (one for longitudinal control, one for lateral). Specifically, a link has been found between the PID’s $k_p$ (proportional) and $k_d$ (derivative) parameters, and the computed value of the proposed aggressiveness index, evaluated over the standard FTP-75 driving cycle.
+DASimulator makes use of a modified version of CARLA agents, which represents a driver using two PID controllers (one for sagittal control, one for lateral). Specifically, a link has been found between the PID’s $k_p$ (proportional) and $k_d$ (derivative) parameters, and the computed value of the proposed aggressiveness index, evaluated over the standard FTP-75 driving cycle.
 
 DASimulator allows the end users to provide a `carla.World` object, a `carla.Vehicle`, specify a route to be followed, an optional speed profile and obviously the target aggressiveness index of the driver. The simulator will run and generate on a given file the signals retrieved during simulation, including throttle, brake, real speed profile and data collected by an IMU mounted on the vehicle (acceleration and angular velocity).
 
-# Installation
+# Installation using Docker
 
 ---
 
@@ -31,7 +31,7 @@ docker build -t das_image.
 Once the image has been built, you can procede to **run DASimulator in a container**:
 
 ```bash
-docker run --privileged --gpus all --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw -p 8888:8888 das_image bash -c "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --certfile=/home/carla/mycert.pem --keyfile=/home/carla/mykey.key & ./CarlaUE4.sh -RenderOffScreen -noSound"
+docker run --privileged --gpus all --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw -p 8888:8888 das_image
 ```
 
 The simulator will start running as well as Jupyter Notebook. You’ll be able to reach the jupyter server by following the URL in the output of the terminal which will look like this:
