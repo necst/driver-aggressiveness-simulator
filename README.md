@@ -1,6 +1,5 @@
 # DASimulator
 
----
 
 This tool exploits [CARLA simulator](https://carla.org/) to allow user simulate the behavior of an **aggressive driver** given the level of aggressiveness. The aggressiveness level decided by the user is consistent with the aggressiveness index defined in [B. Shi *et al*., "Evaluating Driving Styles by Normalizing Driving Behavior Based on Personalized Driver Modeling," in *IEEE Transactions on Systems, Man, and Cybernetics: Systems*, vol. 45, no. 12, pp. 1502-1508, Dec. 2015, doi: 10.1109/TSMC.2015.2417837](https://ieeexplore.ieee.org/document/7090994), which has been taken as reference.
 
@@ -10,7 +9,6 @@ DASimulator allows the end users to provide a `carla.World` object, a `carla.Veh
 
 # Installation using Docker
 
----
 
 Before you start, make sure that your system meets the following requirements (further information on [CARLA docs](https://carla.readthedocs.io/en/0.9.14/start_quickstart/#:~:text=System%20requirements.,GB%20of%20space.)):
  - Linux or Windows with WSL2.
