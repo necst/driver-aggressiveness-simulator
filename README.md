@@ -12,20 +12,24 @@ DASimulator allows the end users to provide a `carla.World` object, a `carla.Veh
 
 ---
 
-Before starting check out the [system requirements](https://carla.readthedocs.io/en/0.9.14/start_quickstart/#:~:text=System%20requirements.,GB%20of%20space.) on CARLA docs.
+Before you start, make sure that your system meets the following requirements (further information on [CARLA docs](https://carla.readthedocs.io/en/0.9.14/start_quickstart/#:~:text=System%20requirements.,GB%20of%20space.)):
+ - Linux or Windows with WSL2.
+ - an adequate Nvidia GPU (at least 6 GB but 8 GB are recommeneded).
+ - at least 20 GB of disk space.
+
 
 Use `git clone` or download the project from this page:
 
 ```bash
-git clone https://github.com/necst/driver-aggressiveness-simulator.git
+git clone --recurse-submodules https://github.com/necst/driver-aggressiveness-simulator.git
 ```
 
-The whole project, including both the modified version of CARLA’s agents and the developed `dasimulator` Python module, have been wrapped in a Docker image. This will allow to run CARLA in a container and interact with the simulation thanks to a jupyter server.
+The whole project, including both the modified version of CARLA’s agents (as a git submodule) and the developed `dasimulator` Python module, have been wrapped in a Docker image. This will allow to run CARLA in a container and interact with the simulation thanks to a jupyter server.
 
 Before starting to build the Docker image, follow the [instructions](https://carla.readthedocs.io/en/0.9.14/build_docker/#before-you-begin) to install everything is needed to run CARLA in a container. Now you can procede to **build the image**:
 
 ```bash
-docker build -t das_image.
+docker build -t das_image .
 ```
 
 Once the image has been built, you can procede to **run DASimulator in a container**:
@@ -42,4 +46,4 @@ The simulator will start running as well as Jupyter Notebook. You’ll be able t
 [I HH:MM:SS NotebookApp]  or <https://127.0.0.1:8888/TOKEN>
 ```
 
-In Jupyter Home Page you’ll be able to see an /example folder that contains the example.ipynb notebook to understand how to use `dasimulator` python module.
+In Jupyter File Tree you’ll be able to see the example.ipynb notebook that details how to use `dasimulator` python module.
